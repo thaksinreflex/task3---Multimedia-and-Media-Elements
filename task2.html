@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Controls for Video and Audio</title>
+    <style>
+        .controls {
+            margin-top: 10px;
+        }
+        button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>My Favorite Hobby</h1>
+    
+    <p>I enjoy reading and learning new things. Here's a video that talks about the benefits of reading and an audio clip that I find relaxing when I read.</p>
+
+    <h2>Watch this video about the benefits of reading:</h2>
+    <!-- Embedding a YouTube video -->
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/MGnRbKYD5gk?si=_s8lK8hl7S4NhLG6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    <div class="controls">
+        <button onclick="playVideo()">Play</button>
+        <button onclick="pauseVideo()">Pause</button>
+        <button onclick="muteVideo()">Mute</button>
+        <button onclick="unmuteVideo()">Unmute</button>
+    </div>
+
+    <h2>Listen to this relaxing audio:</h2>
+    <!-- Embedding an audio file -->
+    <audio id="audio" controls>
+        <source src="/task3 - Multimedia and Media Elements/01 ចងចាំ_3.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="controls">
+        <button onclick="playAudio()">Play</button>
+        <button onclick="pauseAudio()">Pause</button>
+        <label for="volumeControl">Volume: </label>
+        <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="1" onchange="setAudioVolume(this.value)">
+    </div>
+
+    <script>
+        // Video control functions
+        function playVideo() {
+            document.querySelector('iframe').contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        }
+
+        function pauseVideo() {
+            document.querySelector('iframe').contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        }
+
+        function muteVideo() {
+            document.querySelector('iframe').contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*');
+        }
+
+        function unmuteVideo() {
+            document.querySelector('iframe').contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+        }
+
+        // Audio control functions
+        var audio = document.getElementById("audio");
+
+        function playAudio() {
+            audio.play();
+        }
+
+        function pauseAudio() {
+            audio.pause();
+        }
+
+        function setAudioVolume(value) {
+            audio.volume = value;
+        }
+    </script>
+
+</body>
+</html>
